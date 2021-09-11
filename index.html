@@ -18,16 +18,18 @@
 </style>
 
 <body>
-    <h3>Your Total Expense is
-        <h1 id="headingTotal"> </h1>
-    </h3>
+    <h1 id="headingTotal"> </h1>
     <input type="text" id="inputDesc">
     <input id="inputAmount" type="number">
     <button id="btnAddExpense">+</button>
+    <h4 id="tableData"></h4>
 
 </body>
 
 <script>
+    // element for table 
+    const tableEl = document.querySelector("#tableData");
+
     // element of heading value to show value
     const headingEl = document.querySelector("#headingTotal");
 
@@ -71,17 +73,32 @@
         // push obj in allExpense array
         allExpenses.push(expenseObj);
 
-        // log
-        console.clear();
-        console.table(allExpenses);
         // add that value to totalExpense
         totalExpense = totalExpense + expense;
 
         // Set input value to zero when user add
         inputElement.value = 0;
 
+        // Templating
+        let textValue = `Total expense of this month is : ${totalExpense}`
+
         // Set heading element to totalExpense
-        headingEl.textContent = totalExpense;
+        headingEl.textContent = textValue;
+        let showData = '';
+
+
+        const allExpenseHtml = allExpenses.map(expense => {
+            return `
+            <div>
+                    Description: ${expense.desc} :: Amount: ${expense.amount}
+            </div>
+        `
+        });
+        const joinedExpenseHTML = allExpenseHtml.join("");
+        console.log(joinedExpenseHTML);
+
+        tableEl.innerHTML = joinedExpenseHTML;
+
     }
 
     // Get the button element
