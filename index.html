@@ -5,24 +5,51 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
+        integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP"
+        crossorigin="anonymous"></script>
     <title>Personal Expense</title>
 </head>
-<style>
-    body {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
-</style>
 
 <body>
-    <h1 id="headingTotal"> </h1>
-    <input type="text" id="inputDesc">
+    <nav class="navbar navbar-dark bg-dark">
+        <span class="navar-brand bg-0 h1">
+            Xpers
+        </span>
+    </nav>
+    <div class="container-fluid bg-light" style="min-height: 100vh">
+        <div class="container">
+            <div class="jumbotron mt-4">
+                <div class="input-group mb-3">
+                    <input type="text" id="inputAmount" class="form-control" placeholder="Amount spent"
+                        aria-label="Amount spent" aria-describedby="spent in rupee" />
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="spent in rupee">₹</span>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="spent at">@</span>
+                    </div>
+                    <input type="text" id="inputDesc" class="form-control" placeholder="spent On" aria-label="spent On"
+                        aria-describedby="spent at" />
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary" type="button" id="btnAddExpense">Add</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h1 id="headingTotal"> </h1>
+                <h4 id="tableData"></h4>
+            </div>
+        </div>
+    </div>
+
+    <!-- <input type="text" id="inputDesc">
     <input id="inputAmount" type="number">
-    <button id="btnAddExpense">+</button>
-    <h4 id="tableData"></h4>
+    <button id="btnAddExpense">+</button> -->
 
 </body>
 
