@@ -42,14 +42,17 @@
             </div>
             <div>
                 <h1 id="headingTotal"> </h1>
-                <h4 id="tableData"></h4>
+                <!-- <h4 id="tableData"></h4> -->
+
+
+            </div>
+            <div>
+                <ul class="list-group" id="tableData">
+                </ul>
             </div>
         </div>
     </div>
 
-    <!-- <input type="text" id="inputDesc">
-    <input id="inputAmount" type="number">
-    <button id="btnAddExpense">+</button> -->
 
 </body>
 
@@ -86,9 +89,6 @@
         // read value from inputDesc
         const textDesc = inputDescEl.value;
 
-        console.log({
-            textAmount, textDesc
-        });
 
         // convert it to number
         const expense = parseInt(textAmount);
@@ -111,21 +111,38 @@
 
         // Set heading element to totalExpense
         headingEl.textContent = textValue;
-        let showData = '';
 
 
         const allExpenseHtml = allExpenses.map(expense => {
-            return `
-            <div>
-                    Description: ${expense.desc} :: Amount: ${expense.amount}
-            </div>
-        `
+            return createListItem(expense);
         });
+
+        // set join to make an string
         const joinedExpenseHTML = allExpenseHtml.join("");
-        console.log(joinedExpenseHTML);
 
         tableEl.innerHTML = joinedExpenseHTML;
 
+    }
+
+    // view rendering
+    function createListItem({ desc, amount }) {
+        return `
+            <li class="list-group-item d-flex justify-content-between">
+                <div class="d-flex flex-column">
+                    ${desc}
+                    <small class="text-muted">March 11, 2019</small>
+                </div>
+                <div>
+                    <span class="px-5">
+                        ${amount}
+                        <span id="spent in rupee">₹</span>
+                    </span>
+                    <button type="button" class="btn btn-outline-danger btn-sm">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </li>
+        `;
     }
 
     // Get the button element
