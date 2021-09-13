@@ -14,9 +14,13 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-dark bg-dark" >
         <span class="navar-brand bg-0 h1">
             Xpers
+        </span>
+
+        <span id="headingTotal" style="color: white;font-size: x-large">
+
         </span>
     </nav>
     <div class="container-fluid bg-light" style="min-height: 100vh">
@@ -41,7 +45,7 @@
                 </div>
             </div>
             <div>
-                <h1 id="headingTotal"> </h1>
+                <!-- <h1 id="headingTotal"> </h1> -->
                 <!-- <h4 id="tableData"></h4> -->
 
 
@@ -76,7 +80,7 @@
     headingEl.textContent = totalExpense;
 
     // get an array 
-    const allExpenses = [];
+    let allExpenses = [];
 
     // onButtonClick add inputAmount to totalExpense
     function addExpenseToTotal() {
@@ -107,14 +111,23 @@
         // Set input value to zero when user add
         inputElement.value = 0;
 
-        // Templating
-        let textValue = `Total expense of this month is : ${totalExpense}`
+        setTotalAmount(totalExpense)
 
+        // Call SetInnerHtmlArray
+        setInnerHTMLArray(allExpenses);
+    }
+
+    // Controller Functions
+
+    // Set Total value when call
+    function setTotalAmount(totalAmount) {
         // Set heading element to totalExpense
-        headingEl.textContent = textValue;
+        headingEl.textContent = `${totalAmount}`;
+    }
 
-
-        const allExpenseHtml = allExpenses.map(expense => {
+    // Set InnerHtml Array 
+    function setInnerHTMLArray(arrayData) {
+        const allExpenseHtml = arrayData.map(expense => {
             return createListItem(expense);
         });
 
@@ -122,16 +135,43 @@
         const joinedExpenseHTML = allExpenseHtml.join("");
 
         tableEl.innerHTML = joinedExpenseHTML;
-
     }
 
-    // Controller Functions
+    // Date String
     function getDateString(moments) {
         return moments.toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
         })
+    }
+
+    // Delete Items
+    function deleteItem(moment) {
+        console.log(moment);
+        let arr = [];
+        for (let index = 0; index < allExpenses.length; index++) {
+            const element = allExpenses[index];
+            console.log(element.moment.valueOf());
+            if (element.moment.valueOf() !== moment) {
+                arr.push(element);
+            } else {
+                // Set totalexpense value when deleted
+                totalExpenseAfterDeletion = totalExpense - element.amount;
+                console.log(totalExpense, element.amount);
+            }
+        }
+
+        // call total value after deletion
+        setTotalAmount(totalExpenseAfterDeletion);
+
+        // Set old array to new Array after deletion
+        allExpenses = arr;
+
+        console.log(allExpenses, arr);
+
+        // Set view on deletion call
+        setInnerHTMLArray(arr)
     }
 
 
@@ -148,7 +188,10 @@
                         ${amount}
                         <span id="spent in rupee">₹</span>
                     </span>
-                    <button type="button" class="btn btn-outline-danger btn-sm">
+                    <button 
+                        onclick="deleteItem(${moment.valueOf()})"
+                        type="button"
+                        class="btn btn-outline-danger btn-sm">
                         <i class="fas fa-trash-alt"></i>
                     </button>
                 </div>
